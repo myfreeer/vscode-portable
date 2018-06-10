@@ -20,6 +20,7 @@ cd "${zip_name}"
 /usr/bin/unzip -q "../${zip_file}" && rm -f "../${zip_file}"
 cp ../version.dll  ./version.dll
 7z a -mx9 -slp "../../${zip_name}.7z" .
+cd ..
 rm -rf "${zip_name}"
-cd ../..
+cd ..
 which appveyor.exe && appveyor.exe PushArtifact "${zip_name}.7z"
