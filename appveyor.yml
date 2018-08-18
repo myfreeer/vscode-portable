@@ -1,5 +1,4 @@
 version: 0.1-{build}
-skip_tags: true
 build_script:
 - cmd: >-
     appveyor.bat
@@ -17,3 +16,8 @@ skip_commits:
     - '*.md'
     - '.gitingore'
     - '.gitattributes'
+deploy:
+- provider: Environment
+  name: github
+  on:
+    appveyor_repo_tag: true
