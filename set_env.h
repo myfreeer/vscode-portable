@@ -1,6 +1,8 @@
 #include <tchar.h>
 #include <stdbool.h>
 
+#define memcpy_str(dest, str) memcpy((dest), (str), sizeof(str))
+
 DWORD WINAPI GetModulePath(TCHAR *pDirBuf, DWORD bufLength) {
     TCHAR* szEnd = NULL;
     GetModuleFileName(NULL, pDirBuf, bufLength);
@@ -15,14 +17,23 @@ void DLLHijackAttach(bool isSucceed) {
         MessageBox(NULL, TEXT("DLL Hijack Attach Succeed!"), TEXT(DLL_NAME " DLL Hijack Attach"), MB_OK);
 #endif
         TCHAR szDir[MAX_PATH] = { 0 };
-        GetModulePath(szDir, MAX_PATH);
+        DWORD pathLength = GetModulePath(szDir, MAX_PATH);
         SetEnvironmentVariable(_T("VSCODE_APPDATA"), szDir);
-        _tcscat(szDir, _T("\\extensions"));
+        memcpy_str(szDir + pathLength, _T("\\AppData"));
+        if (CreateDirectory(szDir, NULL) || GetLastError() == ERROR_ALREADY_EXISTS) {
+          _tcscat(szDir, _T("\\Roaming"));
+          if (CreateDirectory(szDir, NULL) || GetLastError() == ERROR_ALREADY_EXISTS) {
+            *(szDir + pathLength) = _T('\0');
+            SetEnvironmentVariable(_T("USERPROFILE"), szDir);
+            SetEnvironmentVariable(_T("ALLUSERSPROFILE"), szDir);
+          }
+        }
+        memcpy_str(szDir + pathLength, _T("\\extensions"));
         SetEnvironmentVariable(_T("VSCODE_EXTENSIONS"), szDir);
+        memcpy_str(szDir + pathLength, _T("\\logs"));
+        SetEnvironmentVariable(_T("VSCODE_LOGS"), szDir);
         // SetEnvironmentVariable(_T("APPDATA"), szDir);
         // SetEnvironmentVariable(_T("LOCALAPPDATA"), szDir);
-        // SetEnvironmentVariable(_T("ALLUSERSPROFILE"), szDir);
-        // SetEnvironmentVariable(_T("USERPROFILE"), szDir);
     }
 }
 
