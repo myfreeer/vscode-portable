@@ -38,7 +38,7 @@ rm -rf "${zip_name}.7z"
 
 # begin vscodium
 cd "build_${MACHINE}"
-wget -nv --trust-server-names "${url_vscodium}"
+wget -nv "${url_vscodium}"
 mkdir -p "${name_vscodium}"
 cd "${name_vscodium}"
 /usr/bin/unzip -q "../${name_vscodium}.zip" && rm -f "../${name_vscodium}.zip"
