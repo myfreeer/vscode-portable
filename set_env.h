@@ -23,6 +23,8 @@ void DLLHijackAttach(bool isSucceed) {
         if (CreateDirectory(szDir, NULL) || GetLastError() == ERROR_ALREADY_EXISTS) {
           _tcscat(szDir, _T("\\Roaming"));
           if (CreateDirectory(szDir, NULL) || GetLastError() == ERROR_ALREADY_EXISTS) {
+            SetEnvironmentVariable(_T("APPDATA"), szDir);
+            SetEnvironmentVariable(_T("LOCALAPPDATA"), szDir);
             *(szDir + pathLength) = _T('\0');
             SetEnvironmentVariable(_T("USERPROFILE"), szDir);
             SetEnvironmentVariable(_T("ALLUSERSPROFILE"), szDir);
@@ -32,8 +34,6 @@ void DLLHijackAttach(bool isSucceed) {
         SetEnvironmentVariable(_T("VSCODE_EXTENSIONS"), szDir);
         memcpy_str(szDir + pathLength, _T("\\logs"));
         SetEnvironmentVariable(_T("VSCODE_LOGS"), szDir);
-        // SetEnvironmentVariable(_T("APPDATA"), szDir);
-        // SetEnvironmentVariable(_T("LOCALAPPDATA"), szDir);
     }
 }
 
