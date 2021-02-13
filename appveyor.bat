@@ -1,5 +1,5 @@
-echo Syncing msys2 packages...
-C:\msys64\usr\bin\pacman -Sq --noconfirm --needed --noprogressbar --ask=20 unzip p7zip mingw-w64-x86_64-ninja mingw-w64-i686-ninja || call :msys2_workaround
+rem echo Syncing msys2 packages...
+rem C:\msys64\usr\bin\pacman -Sq --noconfirm --needed --noprogressbar --ask=20 unzip p7zip mingw-w64-x86_64-ninja mingw-w64-i686-ninja
 
 echo Building and packaging 64-bit version...
 set MSYSTEM=MINGW64
@@ -20,15 +20,3 @@ echo Packaging...
 move /Y mingw32\version.dll .\32bit_version.dll
 move /Y mingw64\version.dll .\64bit_version.dll
 echo Done.
-
-exit /b
-
-:msys2_workaround
-echo workaround for msys2 packages...
-rem https://www.msys2.org/news/#2020-06-29-new-packagers
-C:\msys64\usr\bin\curl -O http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz
-C:\msys64\usr\bin\curl -O http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig
-C:\msys64\usr\bin\pacman-key --verify msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig
-C:\msys64\usr\bin\pacman -U --noconfirm --noprogressbar --ask=20 msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz
-C:\msys64\usr\bin\pacman -Sy --noconfirm --needed --noprogressbar --ask=20 unzip p7zip mingw-w64-x86_64-ninja mingw-w64-i686-ninja
-exit /b
