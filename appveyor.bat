@@ -29,6 +29,6 @@ rem https://www.msys2.org/news/#2020-06-29-new-packagers
 C:\msys64\usr\bin\curl -O http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz
 C:\msys64\usr\bin\curl -O http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig
 C:\msys64\usr\bin\pacman-key --verify msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig
-C:\msys64\usr\bin\pacman -U msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz
+C:\msys64\usr\bin\pacman -U --noconfirm --noprogressbar --ask=20 msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz
 C:\msys64\usr\bin\pacman -Sy --noconfirm --needed --noprogressbar --ask=20 unzip p7zip mingw-w64-x86_64-ninja mingw-w64-i686-ninja
 exit /b
