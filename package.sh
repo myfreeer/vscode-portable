@@ -26,7 +26,7 @@ zip_file="$(ls | grep -i 'vscode' | sort -uVr | head -1)"
 zip_name="$(echo "${zip_file}" | sed 's/\.zip$//')"
 mkdir -p "${zip_name}"
 cd "${zip_name}"
-/usr/bin/unzip -q "../${zip_file}" && rm -f "../${zip_file}"
+7z x "../${zip_file}" && rm -f "../${zip_file}"
 cp ../version.dll  ./version.dll
 7z a -mx9 -slp "../../${zip_name}.7z" .
 cd ..
@@ -41,7 +41,7 @@ cd "build_${MACHINE}"
 wget -nv "${url_vscodium}"
 mkdir -p "${name_vscodium}"
 cd "${name_vscodium}"
-/usr/bin/unzip -q "../${name_vscodium}.zip" && rm -f "../${name_vscodium}.zip"
+7z x "../${name_vscodium}.zip" && rm -f "../${name_vscodium}.zip"
 cp ../version.dll  ./version.dll
 7z a -mx9 -slp "../../${name_vscodium}.7z" .
 cd ..
