@@ -1,5 +1,5 @@
 echo Syncing msys2 packages...
-C:\msys64\usr\bin\pacman -Sq --noconfirm --needed --noprogressbar --ask=20 unzip p7zip mingw-w64-x86_64-ninja mingw-w64-i686-ninja
+C:\msys64\usr\bin\pacman -Syq --noconfirm --needed --noprogressbar --ask=20 unzip p7zip mingw-w64-x86_64-ninja mingw-w64-i686-ninja
 
 echo Building and packaging 64-bit version...
 set MSYSTEM=MINGW64
