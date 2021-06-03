@@ -21,14 +21,14 @@ else
     url_vscodium="${url_vscodium_32}"
 fi
 
-wget -nv --trust-server-names "${url}"
+wget -nv --trust-server-names "${url}" || rm -f *.zip && wget -nv --trust-server-names "${url}" 
 zip_file="$(ls | grep -i 'vscode' | sort -uVr | head -1)"
 zip_name="$(echo "${zip_file}" | sed 's/\.zip$//')"
 mkdir -p "${zip_name}"
 cd "${zip_name}"
 7z x "../${zip_file}" && rm -f "../${zip_file}"
 cp ../version.dll  ./version.dll
-7z a -mx9 -slp "../../${zip_name}.7z" .
+7z a -mx9 -myx9 -mqs -slp "../../${zip_name}.7z" .
 cd ..
 rm -rf "${zip_name}"
 cd ..
@@ -38,12 +38,12 @@ rm -rf "${zip_name}.7z"
 
 # begin vscodium
 cd "build_${MACHINE}"
-wget -nv "${url_vscodium}"
+wget -nv "${url_vscodium}" || rm -f *.zip && wget -nv "${url_vscodium}"
 mkdir -p "${name_vscodium}"
 cd "${name_vscodium}"
 7z x "../${name_vscodium}.zip" && rm -f "../${name_vscodium}.zip"
 cp ../version.dll  ./version.dll
-7z a -mx9 -slp "../../${name_vscodium}.7z" .
+7z a -mx9 -myx9 -mqs -slp "../../${name_vscodium}.7z" .
 cd ..
 rm -rf "${name_vscodium}"
 cd ..
