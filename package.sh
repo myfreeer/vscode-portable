@@ -3,8 +3,8 @@ MACHINE="$(gcc -dumpmachine)"
 mkdir -p "build_${MACHINE}"
 cd "build_${MACHINE}"
 echo Packaging...
-url_64='https://vscode-update.azurewebsites.net/latest/win32-x64-archive/stable'
-url_32='https://vscode-update.azurewebsites.net/latest/win32-archive/stable'
+url_64='https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-archive'
+url_32='https://code.visualstudio.com/sha/download?build=stable&os=win32-archive'
 version_vscodium=$(curl -ks https://github.com/VSCodium/vscodium/releases/latest | grep -ioP '[0-9.]{4,}')
 name_vscodium_64="VSCodium-win32-x64-${version_vscodium}"
 name_vscodium_32="VSCodium-win32-ia32-${version_vscodium}"
